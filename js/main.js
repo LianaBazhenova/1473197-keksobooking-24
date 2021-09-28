@@ -1,17 +1,36 @@
 function getRandomIntFromRange(min, max) {
-  if (min < 0 || max <= min) {
-    return false;
+  const errorRange = 'Задан некорректный диапазон';
+  if (min < 0 || max < 0) {
+    return errorRange;
+  }
+  if (max < min) {
+    const swap = max;
+    max = min;
+    min = swap;
+  }
+  if (min === max) {
+    return max;
   }
   return Math.floor(Math.random() * (max - min + 1) + min);
 }
 
 function getRandomFloatFromRange(min, max, numberOfSimbols) {
-  if (min < 0 || max <= min) {
-    return false;
+  const errorRange = 'Задан некорректный диапазон';
+  if (min < 0 || max < 0) {
+    return errorRange;
   }
-  const number = (Math.random() * (max - min + 1) + min);
+  if (max < min) {
+    const swap = max;
+    max = min;
+    min = swap;
+  }
+  if (min === max) {
+    return null;
+  }
+  const number = (Math.random() * (max - min) + min);
   return number.toFixed(numberOfSimbols);
 }
 
-getRandomFloatFromRange(1.7, 5.9, 3);
-getRandomIntFromRange(1, 100);
+
+getRandomFloatFromRange(1.7, 1.9, 3);
+getRandomIntFromRange(9, 78);
