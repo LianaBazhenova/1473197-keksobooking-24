@@ -37,8 +37,12 @@ const generateRandomItem = () => {
   const LIST_OF_FEATURES_NUMBER = LIST_OF_FEATURES.slice(0, getRandomIntFromRange(1,5));
 
   //photos
-  const LIST_OF_PHOTOS = ['https://assets.htmlacademy.ru/content/intensive/javascript-1/keksobooking/duonguyen-8LrGtIxxa4w.jpg', 'https://assets.htmlacademy.ru/content/intensive/javascript-1/keksobooking/brandon-hoogenboom-SNxQGWxZQi0.jpg', 'https://assets.htmlacademy.ru/content/intensive/javascript-1/keksobooking/claire-rendall-b6kAwr1i0Iw.jpg'];
-  const LIST_OF_PHOTOS_NUMBER = LIST_OF_PHOTOS[getRandomIntFromRange(0,2)];
+  const LIST_OF_PHOTOS = [
+    'https://assets.htmlacademy.ru/content/intensive/javascript-1/keksobooking/duonguyen-8LrGtIxxa4w.jpg',
+    'https://assets.htmlacademy.ru/content/intensive/javascript-1/keksobooking/brandon-hoogenboom-SNxQGWxZQi0.jpg',
+    'https://assets.htmlacademy.ru/content/intensive/javascript-1/keksobooking/claire-rendall-b6kAwr1i0Iw.jpg',
+  ];
+  const LIST_OF_PHOTOS_NUMBER = LIST_OF_PHOTOS.slice(0, getRandomIntFromRange(0,2));
 
   //location
   //lat
