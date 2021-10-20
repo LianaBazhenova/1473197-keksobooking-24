@@ -34,7 +34,7 @@ const generateRandomItem = () => {
 
   //features
   const LIST_OF_FEATURES = ['wifi', 'dishwasher', 'parking', 'washer', 'elevator', 'conditioner'];
-  const LIST_OF_FEATURES_NUMBER = LIST_OF_FEATURES.slice(0, getRandomIntFromRange(1,5));
+  const LIST_OF_FEATURES_NUMBER = LIST_OF_FEATURES.slice(0, getRandomIntFromRange(1,6));
 
   //photos
   const LIST_OF_PHOTOS = [
@@ -42,7 +42,7 @@ const generateRandomItem = () => {
     'https://assets.htmlacademy.ru/content/intensive/javascript-1/keksobooking/brandon-hoogenboom-SNxQGWxZQi0.jpg',
     'https://assets.htmlacademy.ru/content/intensive/javascript-1/keksobooking/claire-rendall-b6kAwr1i0Iw.jpg',
   ];
-  const LIST_OF_PHOTOS_NUMBER = LIST_OF_PHOTOS.slice(0, getRandomIntFromRange(0,2));
+  const LIST_OF_PHOTOS_NUMBER = LIST_OF_PHOTOS.slice(0, getRandomIntFromRange(1,3));
 
   //location
   //lat
