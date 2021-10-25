@@ -1,5 +1,6 @@
 import {generateRandomItem} from './data.js';
 import './generate-card.js';
+import './form.js';
 
 const ITEMS = [];
 const NUMBER_OF_ITEMS = 10;
