@@ -1,6 +1,6 @@
+import {MIN_NAME_LENGTH, MAX_NAME_LENGTH, VALIDATION_ROOM, TYPE_MIN_PRICE} from './const.js';
+
 const inputTitle = document.querySelector('#title');
-const MIN_NAME_LENGTH = 30;
-const MAX_NAME_LENGTH = 100;
 
 inputTitle.addEventListener('input', () => {
   const valueLength = inputTitle.value.length;
@@ -16,17 +16,9 @@ inputTitle.addEventListener('input', () => {
   inputTitle.reportValidity();
 });
 
-
 const inputPrice = document.querySelector('#price');
 const form = document.querySelector('.ad-form');
 
-const TYPE_MIN_PRICE = {
-  bungalow: 0,
-  flat: 1000,
-  hotel: 3000,
-  house: 5000,
-  palace: 10000,
-};
 
 function onPriceChange (evt) {
   if (evt.target.matches('#type')) {
@@ -37,33 +29,28 @@ function onPriceChange (evt) {
 
 form.addEventListener('change', onPriceChange);
 
-
 const roomNumber = document.querySelector('#room_number');
 const capacity = document.querySelector('#capacity');
 
-const validationRoom = [
-  {
-    value: 1,
-    allowed: [1],
-  },
-  {
-    value: 2,
-    allowed: [1, 2],
-  },
-  {
-    value: 3,
-    allowed: [1, 2, 3],
-  },
-  {
-    value: 100,
-    allowed: [0],
-  },
-];
+document.addEventListener('DOMContentLoaded', ()  => {
+  capacity.querySelectorAll('option').forEach((option) => {
+    option.disabled = true;
+  });
+});
 
-roomNumber.addEventListener('change',  (evt) => {
+roomNumber.addEventListener('change', (evt) => {
   const value = parseInt(evt.target.value, 10);
-  const validation = validationRoom.find((item) => item.value === value);
+  const validation = VALIDATION_ROOM.find((item) => item.value === value);
   capacity.querySelectorAll('option').forEach((option) => {
     option.disabled = !validation.allowed.includes(parseInt(option.value, 10));
   });
 });
+
+const submitBatton = document.querySelector('.ad-form__submit');
+
+submitBatton.addEventListener('click', () => {
+  capacity.querySelectorAll('option').forEach((option) => {
+    option.disabled = false;
+  });
+});
+
