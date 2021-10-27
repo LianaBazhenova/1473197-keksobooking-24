@@ -54,3 +54,16 @@ submitBatton.addEventListener('click', () => {
   });
 });
 
+const timeIn = document.querySelector('#timein');
+const timeOut = document.querySelector('#timeout');
+
+
+function timeChange (evt) {
+  if (evt.target.matches('#timein')) {
+    timeOut.value = evt.target.value;
+  } else if (evt.target.matches('#timeout')) {
+    timeIn.value = evt.target.value;
+  }
+}
+
+form.addEventListener('change', timeChange);
