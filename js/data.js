@@ -1,3 +1,4 @@
+
 import {getRandomIntFromRange, getRandomFloatFromRange} from './util.js';
 
 //author
@@ -83,5 +84,6 @@ const generateRandomItem = () => {
 
 };
 
-
 export{generateRandomItem};
+
+

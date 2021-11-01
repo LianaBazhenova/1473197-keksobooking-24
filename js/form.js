@@ -1,5 +1,33 @@
 import {MIN_NAME_LENGTH, MAX_NAME_LENGTH, VALIDATION_ROOM, TYPE_MIN_PRICE} from './const.js';
 
+const form = document.querySelector('.ad-form');
+const formFieldset= document.querySelectorAll('.ad-form__element');
+const mapFilter = document.querySelectorAll('.map__filter');
+const mapFilters =  document.querySelector('.map__filters');
+
+function getInactiveState() {
+  document.addEventListener('DOMContentLoaded', () => {
+    form.classList.add('ad-form--disabled');
+    mapFilters.classList.add('map__filters--disabled');
+    formFieldset.disabled = true;
+    mapFilter.disabled = true;
+  });
+}
+
+//getInactiveState();
+
+function getActiveState() {
+  document.addEventListener('DOMContentLoaded', () => {
+    form.classList.remove('ad-form--disabled');
+    mapFilters.classList.remove('map__filters--disabled');
+    formFieldset.disabled = false;
+    mapFilter.disabled = false;
+  });
+}
+
+//getActiveState();
+
+
 const inputTitle = document.querySelector('#title');
 
 inputTitle.addEventListener('input', () => {
@@ -17,7 +45,6 @@ inputTitle.addEventListener('input', () => {
 });
 
 const inputPrice = document.querySelector('#price');
-const form = document.querySelector('.ad-form');
 
 
 function onPriceChange (evt) {
@@ -67,3 +94,5 @@ function timeChange (evt) {
 }
 
 form.addEventListener('change', timeChange);
+
+export{getInactiveState, getActiveState};
