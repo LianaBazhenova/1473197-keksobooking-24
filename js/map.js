@@ -1,6 +1,5 @@
 import {getInactiveState, getActiveState} from './form.js';
-import{popups} from './generate-card.js';
-import{getTemplate} from './generate-card.js';
+import{popups, getTemplate} from './generate-card.js';
 
 const address = document.querySelector('#address');
 address.disabled = true;
@@ -47,6 +46,7 @@ mainPinMarker.on('moveend', (evt) => {
   address.value = `${evt.target.getLatLng().lat.toFixed(5)} ${evt.target.getLatLng().lng.toFixed(5)}`;
 });
 
+
 popups.forEach((popup) => {
 
   const pinIcon = L.icon({
@@ -68,5 +68,6 @@ popups.forEach((popup) => {
   marker
     .addTo(map)
     .bindPopup(getTemplate(popup));
-
 });
+
+

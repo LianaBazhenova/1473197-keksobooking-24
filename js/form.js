@@ -14,7 +14,6 @@ function getInactiveState() {
   });
 }
 
-//getInactiveState();
 
 function getActiveState() {
   document.addEventListener('DOMContentLoaded', () => {
@@ -24,8 +23,6 @@ function getActiveState() {
     mapFilter.disabled = false;
   });
 }
-
-//getActiveState();
 
 
 const inputTitle = document.querySelector('#title');
