@@ -1,4 +1,7 @@
 import {MIN_NAME_LENGTH, MAX_NAME_LENGTH, VALIDATION_ROOM, TYPE_MIN_PRICE} from './const.js';
+import { sendData } from './api.js';
+import {showMessageSendSuccess, showMessageSendError} from './message.js';
+import {setInitialSettings, initMap} from './map.js';
 
 const form = document.querySelector('.ad-form');
 const formFieldset= document.querySelectorAll('.ad-form__element');
@@ -14,7 +17,6 @@ function getInactiveState() {
   });
 }
 
-
 function getActiveState() {
   document.addEventListener('DOMContentLoaded', () => {
     form.classList.remove('ad-form--disabled');
@@ -23,7 +25,6 @@ function getActiveState() {
     mapFilter.disabled = false;
   });
 }
-
 
 const inputTitle = document.querySelector('#title');
 
@@ -42,7 +43,7 @@ inputTitle.addEventListener('input', () => {
 });
 
 const inputPrice = document.querySelector('#price');
-
+const typeSelect = document.querySelector('#type');
 
 function onPriceChange (evt) {
   if (evt.target.matches('#type')) {
@@ -52,6 +53,11 @@ function onPriceChange (evt) {
 }
 
 form.addEventListener('change', onPriceChange);
+
+const onPriceValueSet = () => {
+  inputPrice.min = TYPE_MIN_PRICE[typeSelect.value];
+  inputPrice.placeholder = TYPE_MIN_PRICE[typeSelect.value];
+};
 
 const roomNumber = document.querySelector('#room_number');
 const capacity = document.querySelector('#capacity');
@@ -81,7 +87,6 @@ submitBatton.addEventListener('click', () => {
 const timeIn = document.querySelector('#timein');
 const timeOut = document.querySelector('#timeout');
 
-
 function timeChange (evt) {
   if (evt.target.matches('#timein')) {
     timeOut.value = evt.target.value;
@@ -91,5 +96,27 @@ function timeChange (evt) {
 }
 
 form.addEventListener('change', timeChange);
+
+const clearForm = () => {
+  form.reset();
+  onPriceValueSet();
+  setInitialSettings();
+  showMessageSendSuccess();
+};
+
+const resetButton = document.querySelector('.ad-form__reset');
+resetButton.addEventListener('click', (evt) => {
+  evt.preventDefault();
+  form.reset();
+  setInitialSettings();
+  onPriceValueSet();
+  initMap();
+});
+
+form.addEventListener('submit', (evt) => {
+  evt.preventDefault();
+  const formData = new FormData(evt.target);
+  sendData(clearForm, showMessageSendError, formData);
+});
 
 export{getInactiveState, getActiveState};

@@ -31,4 +31,10 @@ function getRandomFloatFromRange(min, max, numberOfSimbols) {
   return +number.toFixed(numberOfSimbols);
 }
 
-export{getRandomIntFromRange, getRandomFloatFromRange};
+
+const isEscKey = (evt) => evt.key === 'Escape' || evt.key === 'Esc';
+
+
+export{getRandomIntFromRange, getRandomFloatFromRange, isEscKey};
+
+
