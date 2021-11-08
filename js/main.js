@@ -1,14 +1,12 @@
-import {generateRandomItem} from './data.js';
-import './generate-card.js';
+import './map.js';
+import {createMarkers, initMap} from './map.js';
 import './form.js';
+import { getData } from './api.js';
 
-const ITEMS = [];
-const NUMBER_OF_ITEMS = 10;
+initMap();
 
-for(let i = 0; i < NUMBER_OF_ITEMS; i++) {
-  const NEW_OBJECT = generateRandomItem();
-  ITEMS.push(NEW_OBJECT);
-}
-
-export{ITEMS};
+getData((popups) => {
+  createMarkers(popups);
+},
+);
 
