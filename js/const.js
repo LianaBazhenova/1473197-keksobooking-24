@@ -34,4 +34,33 @@ const INITIAL_CORDS = {
   lng: 	139.76101,
 };
 
-export{MIN_NAME_LENGTH, MAX_NAME_LENGTH, VALIDATION_ROOM, TYPE_MIN_PRICE, ALERT_SHOW_TIME, INITIAL_CORDS};
+const LOW_PRICE = 10000;
+const HIGH_PRICE = 50000;
+
+const RANGE_PRICE = {
+  type:'any',
+  pricelow: 'low',
+  pricemiddle: 'middle',
+  pricehigh: 'high',
+};
+
+const RANGE_GUESTS = {
+  zero: 0,
+  one: 1,
+  two: 2,
+  hundred: 100,
+};
+
+const QUANTITY_ELEMENTS = 10;
+
+export{MIN_NAME_LENGTH,
+  MAX_NAME_LENGTH,
+  VALIDATION_ROOM,
+  TYPE_MIN_PRICE,
+  ALERT_SHOW_TIME,
+  INITIAL_CORDS,
+  LOW_PRICE,
+  HIGH_PRICE,
+  RANGE_PRICE,
+  RANGE_GUESTS,
+  QUANTITY_ELEMENTS};

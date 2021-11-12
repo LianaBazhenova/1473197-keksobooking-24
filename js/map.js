@@ -1,10 +1,10 @@
-import {getInactiveState, getActiveState} from './form.js';
+import { getActiveState} from './form.js';
 import {getTemplate} from './generate-card.js';
-import {INITIAL_CORDS} from './const.js';
+import {INITIAL_CORDS, QUANTITY_ELEMENTS} from './const.js';
+import { compareOffers } from './filter.js';
+
 
 const address = document.querySelector('#address');
-
-getInactiveState();
 
 const map = L.map('map-canvas');
 
@@ -15,7 +15,7 @@ const initMap = () => {
     .setView({
       lat: 35.68219,
       lng: 	139.76101,
-    }, 13);
+    }, 10);
 
   L.tileLayer(
     'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
@@ -89,11 +89,13 @@ const createMarkers = (popups) => {
   markerGroup.clearLayers();
   popups.
     slice()
-    .slice(0, 10)
+    .sort(compareOffers)
+    .slice(0, QUANTITY_ELEMENTS)
     .forEach((popup) => {
       createMarker(popup);
     });
 };
+
 
 const setInitialSettings = () => {
 
@@ -107,7 +109,8 @@ const setInitialSettings = () => {
   map.setView({
     lat: 35.68219,
     lng: 	139.76101,
-  }, 13);
+  }, 10);
+  map.closePopup();
 };
 
 export{setInitialSettings, createMarkers, initMap};
