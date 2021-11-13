@@ -4,27 +4,35 @@ import {showMessageSendSuccess, showMessageSendError} from './message.js';
 import {setInitialSettings, initMap} from './map.js';
 
 const form = document.querySelector('.ad-form');
-const formFieldset= document.querySelectorAll('.ad-form__element');
-const mapFilter = document.querySelectorAll('.map__filter');
+const formFieldset= form.querySelectorAll('.ad-form__element');
 const mapFilters =  document.querySelector('.map__filters');
+const mapFilter = mapFilters.querySelectorAll('.map__filter');
+const formFilterField = mapFilters.querySelector('.map__features');
 
-function getInactiveState() {
-  document.addEventListener('DOMContentLoaded', () => {
-    form.classList.add('ad-form--disabled');
-    mapFilters.classList.add('map__filters--disabled');
-    formFieldset.disabled = true;
-    mapFilter.disabled = true;
+const getInactiveState = () => {
+  form.classList.add('ad-form--disabled');
+  mapFilters.classList.add('map__filters--disabled');
+  formFieldset.forEach((adFormFieldset) => {
+    adFormFieldset.setAttribute('disabled', '');
   });
-}
+  mapFilter.forEach((formFilterFieldElement) => {
+    formFilterFieldElement.setAttribute('disabled', '');
+  });
+  formFilterField.removeAttribute('disabled', '');
+};
 
-function getActiveState() {
-  document.addEventListener('DOMContentLoaded', () => {
-    form.classList.remove('ad-form--disabled');
-    mapFilters.classList.remove('map__filters--disabled');
-    formFieldset.disabled = false;
-    mapFilter.disabled = false;
+const getActiveState = () => {
+  form.classList.remove('ad-form--disabled');
+  mapFilters.classList.remove('map__filters--disabled');
+  formFieldset.forEach((adFormFieldset) => {
+    adFormFieldset.removeAttribute('disabled', '');
   });
-}
+  mapFilter.forEach((formFilterFieldElement) => {
+    formFilterFieldElement.removeAttribute('disabled', '');
+  });
+  formFilterField.removeAttribute('disabled', '');
+};
+
 
 const inputTitle = document.querySelector('#title');
 
@@ -45,10 +53,23 @@ inputTitle.addEventListener('input', () => {
 const inputPrice = document.querySelector('#price');
 const typeSelect = document.querySelector('#type');
 
+
 function onPriceChange (evt) {
   if (evt.target.matches('#type')) {
     inputPrice.placeholder = TYPE_MIN_PRICE[evt.target.value];
     inputPrice.min = TYPE_MIN_PRICE[evt.target.value];
+  }
+
+  const priceValue = + inputPrice.value;
+  const priceMax = + inputPrice.max;
+  const priceMin = + inputPrice.min;
+
+  if (priceValue < priceMin) {
+    inputPrice.setCustomValidity(`Цена не должна быть меньше ${priceMin}`);
+  } else if (priceValue > priceMax) {
+    inputPrice.setCustomValidity(`Цена не должна быть больше ${priceMax}`);
+  } else {
+    inputPrice.setCustomValidity('');
   }
 }
 

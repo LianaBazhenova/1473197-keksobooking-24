@@ -1,13 +1,18 @@
 import './map.js';
-import {createMarkers, initMap} from './map.js';
+import {getInactiveState} from './form.js';
 import './form.js';
+import {createMarkers, initMap} from './map.js';
+//import { showMessageGetError } from './messages.js';
 import { getData } from './api.js';
+import './filter.js';
+import {getFilterOffers, setFilterChange} from './filter.js';
 
 
-initMap();
+getInactiveState();
 
 getData((popups) => {
   createMarkers(popups);
+  initMap();
+  setFilterChange(() => createMarkers(getFilterOffers(popups)));
 },
 );
-
