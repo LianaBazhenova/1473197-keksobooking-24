@@ -1,13 +1,21 @@
 import { ALERT_SHOW_TIME} from './const.js';
 import {isEscKey} from './util.js';
 
-const onMessageHide = (evt) => {
+const onMessageHideClick = (evt) => {
   const message = document.querySelector('.show-message');
-  if (isEscKey(evt) || evt.type === 'click') {
+  if (evt.type === 'click') {
     evt.preventDefault();
     message.remove();
-    document.removeEventListener('click', onMessageHide);
-    document.removeEventListener('keydown', onMessageHide);
+    document.removeEventListener('click', onMessageHideClick);
+  }
+};
+
+const onMessageHideKeydown = (evt) => {
+  const message = document.querySelector('.show-message');
+  if (isEscKey(evt)) {
+    evt.preventDefault();
+    message.remove();
+    document.removeEventListener('keydown', onMessageHideKeydown);
   }
 };
 
@@ -38,8 +46,8 @@ const showMessageSendSuccess = () => {
   messageSuccess.classList.add('show-message');
   body.append(messageSuccess);
 
-  document.addEventListener('click', onMessageHide);
-  document.addEventListener('keydown', onMessageHide);
+  document.addEventListener('click', onMessageHideClick);
+  document.addEventListener('keydown', onMessageHideKeydown);
 };
 
 const showMessageSendError = () => {
@@ -51,9 +59,9 @@ const showMessageSendError = () => {
   body.append(messageError);
 
   const buttonCloseMessage = document.querySelector('.error__button');
-  buttonCloseMessage.addEventListener('click', onMessageHide);
-  document.addEventListener('click', onMessageHide);
-  document.addEventListener('keydown', onMessageHide);
+  buttonCloseMessage.addEventListener('click', onMessageHideClick);
+  document.addEventListener('click', onMessageHideClick);
+  document.addEventListener('keydown', onMessageHideKeydown);
 };
 
 export { showMessageGetError, showMessageSendSuccess, showMessageSendError };

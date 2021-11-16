@@ -1,38 +1,28 @@
-import {MIN_NAME_LENGTH, MAX_NAME_LENGTH, VALIDATION_ROOM, TYPE_MIN_PRICE} from './const.js';
+import {MIN_NAME_LENGTH, MAX_NAME_LENGTH, VALIDATION_ROOM, TYPE_MIN_PRICE, AD_FORM_DISABLED, MAP_FILTERS_DISABLED} from './const.js';
 import { sendData } from './api.js';
 import {showMessageSendSuccess, showMessageSendError} from './message.js';
 import {setInitialSettings, initMap} from './map.js';
+import {clearFilter} from './filter.js';
 
 const form = document.querySelector('.ad-form');
-const formFieldset= form.querySelectorAll('.ad-form__element');
 const mapFilters =  document.querySelector('.map__filters');
-const mapFilter = mapFilters.querySelectorAll('.map__filter');
-const formFilterField = mapFilters.querySelector('.map__features');
+const disabledFields = document.querySelectorAll('.map__filters .map__filter, .ad-form .ad-form__element, .map__filters .map__features');
 
 const getInactiveState = () => {
-  form.classList.add('ad-form--disabled');
-  mapFilters.classList.add('map__filters--disabled');
-  formFieldset.forEach((adFormFieldset) => {
-    adFormFieldset.setAttribute('disabled', '');
+  form.classList.add(AD_FORM_DISABLED);
+  mapFilters.classList.add(MAP_FILTERS_DISABLED);
+  disabledFields.forEach((setEnabled) => {
+    setEnabled.setAttribute('disabled', '');
   });
-  mapFilter.forEach((formFilterFieldElement) => {
-    formFilterFieldElement.setAttribute('disabled', '');
-  });
-  formFilterField.removeAttribute('disabled', '');
 };
 
 const getActiveState = () => {
-  form.classList.remove('ad-form--disabled');
-  mapFilters.classList.remove('map__filters--disabled');
-  formFieldset.forEach((adFormFieldset) => {
-    adFormFieldset.removeAttribute('disabled', '');
+  form.classList.remove(AD_FORM_DISABLED);
+  mapFilters.classList.remove(MAP_FILTERS_DISABLED);
+  disabledFields.forEach((removeEnabled) => {
+    removeEnabled.removeAttribute('disabled');
   });
-  mapFilter.forEach((formFilterFieldElement) => {
-    formFilterFieldElement.removeAttribute('disabled', '');
-  });
-  formFilterField.removeAttribute('disabled', '');
 };
-
 
 const inputTitle = document.querySelector('#title');
 
@@ -121,6 +111,7 @@ form.addEventListener('change', timeChange);
 const clearForm = () => {
   form.reset();
   onPriceValueSet();
+  clearFilter();
   setInitialSettings();
   showMessageSendSuccess();
 };
@@ -129,9 +120,10 @@ const resetButton = document.querySelector('.ad-form__reset');
 resetButton.addEventListener('click', (evt) => {
   evt.preventDefault();
   form.reset();
-  setInitialSettings();
   onPriceValueSet();
+  clearFilter();
   initMap();
+  setInitialSettings();
 });
 
 form.addEventListener('submit', (evt) => {
